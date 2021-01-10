@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Demo</title>
+    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Demo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+    </div>
+</nav>
+<main role="main" class="container">
+    <div class="starter-template">
+        <form method="post">
+            <div class="input-group mb-3">
+                <input type="text" name="sql" class="form-control" placeholder="SELECT * FROM ...">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Button</button>
+                </div>
+            </div>
+        </form>
+        <th:block th:if="${alertMessage != null}">
+            <div class="alert" role="alert" th:classappend="'alert-' + ${alertType}" th:text="${alertMessage}"/>
+        </th:block>
+        <th:block th:if="${results != null}">
+            <table th:if="${!results.empty}" class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th:block th:each="entry : ${results[0]}">
+                        <th th:text="${entry.key}" scope="col"/>
+                    </th:block>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="result, iter : ${results}">
+                    <th th:text="${iter.index + 1}" scope="row"/>
+                    <th:block th:each="entry : ${result}">
+                        <td th:text="${entry.value}"/>
+                    </th:block>
+                </tr>
+                </tbody>
+            </table>
+            <div th:if="${results.empty}" class="alert alert-info" role="alert">No results</div>
+        </th:block>
+    </div>
+</main>
+<script type="text/javascript" th:src="@{webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+</body>
+</html>

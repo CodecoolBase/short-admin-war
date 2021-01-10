@@ -1,0 +1,5 @@
+# Build
+
+```
+./mvnw package
+```
